@@ -81,10 +81,10 @@ mysqli_close($koneksi);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #e6f7ff; /* Biru muda */
         }
         .navbar {
-            background-color: #333;
+            background-color: #007bff; /* Biru */
             color: white;
             padding: 10px;
             display: flex;
@@ -108,7 +108,7 @@ mysqli_close($koneksi);
             transition: background-color 0.3s;
         }
         .menu-bar a:hover {
-            background-color: #555;
+            background-color: #0056b3; /* Biru lebih gelap */
         }
         .logout {
             background-color: #dc3545;
@@ -119,7 +119,7 @@ mysqli_close($koneksi);
             transition: background-color 0.3s;
         }
         .logout:hover {
-            background-color: #c82333;
+            background-color: #c82333; /* Merah lebih gelap */
         }
         .container {
             width: 90%;
@@ -128,7 +128,7 @@ mysqli_close($koneksi);
             text-align: center;
         }
         .container h2 {
-            color: #333;
+            color: #007bff; /* Biru */
         }
         .card-container {
             display: flex;
@@ -151,7 +151,7 @@ mysqli_close($koneksi);
             font-size: 20px;
         }
         .card p {
-            color: #777;
+            color: #555; /* Abu-abu */
             font-size: 16px;
         }
         .chart-container {
@@ -205,7 +205,7 @@ mysqli_close($koneksi);
                 datasets: [{
                     label: 'Ketersediaan Kamar',
                     data: [<?= $kamar_tersedia; ?>, <?= $kamar_kosong; ?>],
-                    backgroundColor: ['#36a2eb', '#ff6384'],
+                    backgroundColor: ['#36a2eb', '#ff6384'], /* Biru dan merah muda */
                 }]
             },
             options: {

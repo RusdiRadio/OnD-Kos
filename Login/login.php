@@ -17,22 +17,18 @@ if (isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($result);
 
         // Verifikasi password (tanpa hashing)
-        if ($password === $row['password']) { // Ganti password_verify dengan pembandingan biasa
-            // Set session untuk user
+        if ($password === $row['password']) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['keterangan']; // role diambil dari 'keterangan' di level_user
 
             // Redirect sesuai role
             if ($row['keterangan'] === 'Admin') {
-                echo "Redirecting to admin dashboard...";
                 header("Location: dashboardadmin.php");
                 exit;
             } else {
-                echo "Redirecting to user dashboard...";
                 header("Location: dashboarduser.php");
                 exit;
             }
-            
         } else {
             $error = "Password salah!";
         }
@@ -43,16 +39,16 @@ if (isset($_POST['login'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Manajemen Kost</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* Gaya tampilan */
         .login-box {
             width: 300px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 30px;
             border: 1px solid #ccc;
             border-radius: 10px;
@@ -84,20 +80,66 @@ if (isset($_POST['login'])) {
     </style>
 </head>
 <body>
-    <div class="login-box">
-        <h2>Login</h2>
-        <?php if (isset($error)): ?>
-            <p class="error"><?= $error; ?></p>
-        <?php endif; ?>
-        <form action="" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required>
+    <header>
+        <h1>On D-Kost</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#profile">Profil</a></li>
+                <li><a href="#daftar-kamar">Daftar Kost</a></li>
+                <li><a href="#tentang-kami">Tentang Kami</a></li>
+                <li><a href="#fasilitas">Fasilitas</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
+    <section id="home" class="show">
+        <h2>Selamat Datang di Aura Kost</h2>
+        <p>Kami menyediakan berbagai pilihan kost yang nyaman dan terjangkau.</p>
+        <img src="HomeKost.jpeg" alt="Kost" class="kost-image">
+    </section>
+    
+    <section id="profile">
+        <h2>Profil</h2>
+        <!-- Konten profil disini -->
+    </section>
+    
+    <section id="daftar-kamar">
+        <h2>Daftar Kamar</h2>
+        <!-- Konten daftar kamar disini -->
+    </section>
 
-            <input type="submit" name="login" value="Login">
-        </form>
-    </div>
+    <section id="tentang-kami">
+        <h2>Tentang Kami</h2>
+        <!-- Konten tentang kami disini -->
+    </section>
+
+    <section id="kontak">
+        <h2>Kontak Kami</h2>
+        <!-- Konten kontak disini -->
+    </section>
+
+    <!-- Login Section -->
+    <section id="login">
+        <div class="login-box">
+            <h2>Login</h2>
+            <?php if (isset($error)): ?>
+                <p class="error"><?= $error; ?></p>
+            <?php endif; ?>
+            <form action="" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+                <input type="submit" name="login" value="Login">
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 On D-Kost</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
