@@ -1,10 +1,19 @@
 <?php
+session_start();
+
+// Cek apakah pengguna sudah login dan role-nya admin
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'Admin') {
+    header("Location: login.php");
+    exit;
+}
+
 // Koneksi ke database
 require_once "../koneksi.php";
 
 // Query untuk mengambil data dari tabel penghuni
-$sql = "SELECT id_penghuni, nama, pekerjaan, id_kamar, id_laporan_p, id_transaksi, id_riwayat, id_user FROM penghuni";
+$sql = "SELECT id_penghuni, nama, pekerjaan, id_kamar, id_user FROM penghuni";
 $result = mysqli_query($koneksi, $sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -13,47 +22,172 @@ $result = mysqli_query($koneksi, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Penghuni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f7ff;
+        }
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .menu-bar {
+            display: flex;
+            gap: 15px;
+        }
+        .menu-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu-bar a:hover {
+            background-color: #0056b3;
+        }
+        .logout {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .logout:hover {
+            background-color: #c82333;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container h2 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        td a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        td a:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        .btn-tambah {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+            margin-right: 20px;
+            margin-top: 20px;
+        }
+        .btn-dashboard {
+            background-color: #17a2b8;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Daftar Penghuni</h1>
+    <div class="navbar">
+        <h1>OnD-Kos</h1>
+        <div class="menu-bar">
+            <a href="/CRUD TEST/Kamar/index2.php">Kelola Kamar</a>
+            <a href="/CRUD TEST/User/index3.php">Kelola User</a>
+            <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
+            <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
+        </div>
+        <a href="/CRUD TEST/Login/logout.php" class="logout">Logout</a>
+    </div>
 
-<!-- Tabel untuk menampilkan daftar penghuni -->
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-        <tr>
-            <th>ID Penghuni</th>
-            <th>Nama</th>
-            <th>Pekerjaan</th>
-            <th>Kamar</th>
-            <th>User ID</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-        <?php
-        // Periksa apakah ada data penghuni
-        if (mysqli_num_rows($result) > 0) {
-            // Looping untuk menampilkan setiap baris data
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['id_penghuni'] . "</td>";
-                echo "<td>" . $row['nama'] . "</td>";
-                echo "<td>" . $row['pekerjaan'] . "</td>";
-                echo "<td>Kamar " . $row['id_kamar'] . "</td>";
-                echo "<td>" . $row['id_user'] . "</td>";
-                echo "<td>
-                <a href='editPenghuni.php?id_user=" . $row['id_user'] . "'>Edit</a>
-                <a href='deletePenghuni.php?id_user=" . $row['id_user'] . "'>Delete</a>
-                </<td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='8'>Tidak ada data ditemukan</td></tr>";
-        }
-        ?>
-    </tbody>
-</table>
-<a href="createPenghuni.php">Tambah Data Penghuni Baru</a>  <a href="/CRUD TEST/Login/dashboardadmin.php" >Kembali ke Dashboard</a>
+    <div class="container">
+        <h2>Daftar Penghuni</h2>
+
+        <!-- Tabel untuk menampilkan daftar penghuni -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Penghuni</th>
+                    <th>Nama</th>
+                    <th>Pekerjaan</th>
+                    <th>Kamar</th>
+                    <th>User ID</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Periksa apakah ada data penghuni
+                if (mysqli_num_rows($result) > 0) {
+                    // Looping untuk menampilkan setiap baris data
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id_penghuni'] . "</td>";
+                        echo "<td>" . $row['nama'] . "</td>";
+                        echo "<td>" . $row['pekerjaan'] . "</td>";
+                        echo "<td>Kamar " . $row['id_kamar'] . "</td>";
+                        echo "<td>" . $row['id_user'] . "</td>";
+                        echo "<td>
+                        <a href='editPenghuni.php?id_user=" . $row['id_user'] . "'>Edit</a> | 
+                        <a href='deletePenghuni.php?id_user=" . $row['id_user'] . "'>Delete</a>
+                        </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='6'>Tidak ada data ditemukan</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+
+        <!-- Tombol Tambah Data Penghuni Baru -->
+        <a href="createPenghuni.php" class="btn-tambah">Tambah Data Penghuni Baru</a>
+
+        <!-- Tombol Kembali ke Dashboard -->
+        <a href="/CRUD TEST/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
+    </div>
+    
 </body>
 </html>

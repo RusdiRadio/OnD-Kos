@@ -190,28 +190,36 @@ if (!$query_users) {
                 </tr>
             </thead>
             <tbody>
-                <?php
-                // Loop melalui hasil query dan tampilkan di tabel
-                if (mysqli_num_rows($query_users) > 0) {
-                    while ($row = mysqli_fetch_assoc($query_users)) {
-                        echo "<tr>";
-                        echo "<td>" . $row['id_user'] . "</td>";
-                        echo "<td>" . $row['user_email'] . "</td>";
-                        echo "<td>" . $row['nama_user'] . "</td>";
-                        echo "<td>" . $row['alamat_user'] . "</td>";
-                        echo "<td>" . $row['no_hp'] . "</td>";
-                        echo "<td>" . $row['id_level'] . "</td>";
-                        echo "<td>
-                            <a href='editUser.php?id_user=" . $row['id_user'] . "'>Edit</a> |
-                            <a href='deleteUser.php?id_user=" . $row['id_user'] . "'>Delete</a>
-                        </td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
-                }
-                ?>
-            </tbody>
+    <?php
+    // Loop melalui hasil query dan tampilkan di tabel
+    if (mysqli_num_rows($query_users) > 0) {
+        while ($row = mysqli_fetch_assoc($query_users)) {
+            echo "<tr>";
+            echo "<td>" . $row['id_user'] . "</td>";
+            echo "<td>" . $row['user_email'] . "</td>";
+            echo "<td>" . $row['nama_user'] . "</td>";
+            echo "<td>" . $row['alamat_user'] . "</td>";
+            echo "<td>" . $row['no_hp'] . "</td>";
+            echo "<td>" . $row['id_level'] . "</td>";
+            echo "<td>";
+
+            // Hanya tampilkan opsi Edit dan Delete jika id_level bukan 1
+            if ($row['id_level'] != 1) {
+                echo "<a href='editUser.php?id_user=" . $row['id_user'] . "'>Edit</a> | ";
+                echo "<a href='deleteUser.php?id_user=" . $row['id_user'] . "'>Delete</a>";
+            } else {
+                echo "Tidak dapat diubah atau dihapus"; // Tidak ada aksi untuk id_level 1
+            }
+
+            echo "</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
+    }
+    ?>
+</tbody>
+
         </table>
         <!-- Tombol Tambah Data User Baru -->
 <a href="createUser.php" class="btn-tambah">Tambah Data User Baru</a>

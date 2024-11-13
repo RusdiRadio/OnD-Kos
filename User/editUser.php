@@ -81,6 +81,6 @@ if (isset($_POST['update'])) {
         <input type="submit" name="update" value="Update">
     </form>
 
-    <a href="daftarUser.php">Kembali ke Daftar User</a>
+    <a href="index3.php">Kembali ke Daftar User</a>
 </body>
 </html>
