@@ -154,6 +154,7 @@
             <a href="/CRUD TEST/User/index3.php">Kelola User</a>
             <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
             <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
+            <a href="/CRUD TEST/Riwayat/index5.php">Riwayat Penghuni</a>
         </div>
         <a href="/CRUD TEST/Login/logout.php" class="logout">Logout</a>
     </div>

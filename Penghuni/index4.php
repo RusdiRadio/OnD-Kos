@@ -1,19 +1,18 @@
 <?php
-session_start();
+    session_start();
 
-// Cek apakah pengguna sudah login dan role-nya admin
-if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'Admin') {
-    header("Location: login.php");
-    exit;
-}
+    // Cek apakah pengguna sudah login dan role-nya admin
+    if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'Admin') {
+        header("Location: login.php");
+        exit;
+    }
 
-// Koneksi ke database
-require_once "../koneksi.php";
+    // Koneksi ke database
+    require_once "../koneksi.php";
 
-// Query untuk mengambil data dari tabel penghuni
-$sql = "SELECT id_penghuni, nama, pekerjaan, id_kamar, id_user FROM penghuni";
-$result = mysqli_query($koneksi, $sql);
-
+    // Query untuk mengambil data dari tabel penghuni
+    $sql = "SELECT id_penghuni, nama, pekerjaan, id_kamar, id_user FROM penghuni";
+    $result = mysqli_query($koneksi, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +22,7 @@ $result = mysqli_query($koneksi, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Penghuni</title>
     <style>
+        /* Pertahankan semua style Anda */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -127,7 +127,17 @@ $result = mysqli_query($koneksi, $sql);
             display: inline-block;
             margin-top: 20px;
         }
+        /* Tambahkan style untuk baris yang sudah kosong */
+        .inactive {
+            color: grey;
+        }
     </style>
+    <script>
+    function confirmKeluarkan(form) {
+        return confirm("Apakah Anda yakin ingin mengeluarkan penghuni ini?");
+    }
+</script>
+
 </head>
 <body>
 
@@ -138,6 +148,7 @@ $result = mysqli_query($koneksi, $sql);
             <a href="/CRUD TEST/User/index3.php">Kelola User</a>
             <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
             <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
+            <a href="/CRUD TEST/Riwayat/index5.php">Riwayat Penghuni</a>
         </div>
         <a href="/CRUD TEST/Login/logout.php" class="logout">Logout</a>
     </div>
@@ -163,15 +174,23 @@ $result = mysqli_query($koneksi, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     // Looping untuk menampilkan setiap baris data
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
+                        $rowClass = $row['id_kamar'] == 0 ? 'inactive' : ''; // Kondisi untuk mengatur kelas
+                        echo "<tr class='$rowClass'>";
                         echo "<td>" . $row['id_penghuni'] . "</td>";
                         echo "<td>" . $row['nama'] . "</td>";
                         echo "<td>" . $row['pekerjaan'] . "</td>";
                         echo "<td>Kamar " . $row['id_kamar'] . "</td>";
                         echo "<td>" . $row['id_user'] . "</td>";
                         echo "<td>
-                        <a href='editPenghuni.php?id_user=" . $row['id_user'] . "'>Edit</a> | 
-                        <a href='deletePenghuni.php?id_user=" . $row['id_user'] . "'>Delete</a>
+                            <a href='editPenghuni.php?id_user=" . $row['id_user'] . "'>Edit</a> | 
+                            <a href='deletePenghuni.php?id_user=" . $row['id_user'] . "'>Delete</a> | 
+                            <form action='/CRUD TEST/Riwayat/riwayat.php' method='POST' style='display:inline;' onsubmit='return confirmKeluarkan(this);'>
+                                <input type='hidden' name='id_penghuni' value='" . $row['id_penghuni'] . "'>
+                                <input type='hidden' name='id_kamar' value='" . $row['id_kamar'] . "'>
+                                <input type='hidden' name='nama' value='" . $row['nama'] . "'>
+                                <input type='hidden' name='pekerjaan' value='" . $row['pekerjaan'] . "'>
+                                <button type='submit' name='keluarkan_penghuni' style='color:red; border:none; background:none; cursor:pointer;'>Keluarkan</button>
+                            </form>
                         </td>";
                         echo "</tr>";
                     }
@@ -188,6 +207,6 @@ $result = mysqli_query($koneksi, $sql);
         <!-- Tombol Kembali ke Dashboard -->
         <a href="/CRUD TEST/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
     </div>
-    
+
 </body>
 </html>
