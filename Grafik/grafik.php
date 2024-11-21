@@ -113,13 +113,13 @@
     <div class="navbar">
         <h1>OnD-Kos</h1>
         <div class="menu-bar">
-            <a href="/CRUD TEST/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/CRUD TEST/User/index3.php">Kelola User</a>
-            <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
-            <a href="/CRUD TEST/Riwayat/index5.php">Riwayat Penghuni</a>
+            <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
+            <a href="/OnDKos/User/index3.php">Kelola User</a>
+            <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
+            <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
+            <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
         </div>
-        <a href="/CRUD TEST/Login/logout.php" class="logout">Logout</a>
+        <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
     </div>
 
     <!-- Container grafik -->
@@ -128,7 +128,7 @@
         <div class="chart-container">
             <canvas id="incomeChart" width="600" height="500"></canvas>
         </div>
-        <a href="/CRUD TEST/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
+        <a href="/OnDKos/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
     </div>
 
     <?php
