@@ -192,7 +192,7 @@ mysqli_close($koneksi);
 
             <input type="submit" value="Update Kamar">
             <br><br>
-<a href="/CRUD TEST/Kamar/index2.php" class="btn-kembali">Kembali ke Data Kamar</a>
+<a href="/OnDKos/Kamar/index2.php" class="btn-kembali">Kembali ke Data Kamar</a>
 
         </form>
     </div>

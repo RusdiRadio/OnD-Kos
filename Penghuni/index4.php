@@ -144,13 +144,13 @@
     <div class="navbar">
         <h1>OnD-Kos</h1>
         <div class="menu-bar">
-            <a href="/CRUD TEST/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/CRUD TEST/User/index3.php">Kelola User</a>
-            <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
-            <a href="/CRUD TEST/Riwayat/index5.php">Riwayat Penghuni</a>
+        <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
+            <a href="/OnDKos/User/index3.php">Kelola User</a>
+            <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
+            <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
+            <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
         </div>
-        <a href="/CRUD TEST/Login/logout.php" class="logout">Logout</a>
+        <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
     </div>
 
     <div class="container">
@@ -184,7 +184,7 @@
                         echo "<td>
                             <a href='editPenghuni.php?id_user=" . $row['id_user'] . "'>Edit</a> | 
                             <a href='deletePenghuni.php?id_user=" . $row['id_user'] . "'>Delete</a> | 
-                            <form action='/CRUD TEST/Riwayat/riwayat.php' method='POST' style='display:inline;' onsubmit='return confirmKeluarkan(this);'>
+                            <form action='/OnDKos/Riwayat/riwayat.php' method='POST' style='display:inline;' onsubmit='return confirmKeluarkan(this);'>
                                 <input type='hidden' name='id_penghuni' value='" . $row['id_penghuni'] . "'>
                                 <input type='hidden' name='id_kamar' value='" . $row['id_kamar'] . "'>
                                 <input type='hidden' name='nama' value='" . $row['nama'] . "'>
@@ -205,7 +205,7 @@
         <a href="createPenghuni.php" class="btn-tambah">Tambah Data Penghuni Baru</a>
 
         <!-- Tombol Kembali ke Dashboard -->
-        <a href="/CRUD TEST/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
+        <a href="/OnDKos/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
     </div>
 
 </body>
