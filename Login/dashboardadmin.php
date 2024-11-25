@@ -165,10 +165,11 @@ mysqli_close($koneksi);
     <div class="navbar">
         <h1>OnD-Kos</h1>
         <div class="menu-bar">
-            <a href="/CRUD TEST/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/CRUD TEST/User/index3.php">Kelola User</a>
-            <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
+            <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
+            <a href="/OnDKos/User/index3.php">Kelola User</a>
+            <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
+            <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
+            <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
         </div>
         <a href="logout.php" class="logout">Logout</a>
     </div>
