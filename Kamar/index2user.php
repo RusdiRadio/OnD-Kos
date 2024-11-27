@@ -11,48 +11,67 @@
             margin: 0;
             padding: 0;
             background-color: #e6f7ff;
-        }
-        .navbar {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
         }
-        .navbar h1 {
-            margin: 0;
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #007bff;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h1 {
             font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
         }
         .menu-bar {
-            display: flex;
-            gap: 15px;
+            flex-grow: 1;
         }
         .menu-bar a {
+            display: block;
             color: white;
             text-decoration: none;
-            font-size: 16px;
             padding: 10px;
+            margin: 5px 0;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease-in-out;
         }
         .menu-bar a:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .logout {
-            background-color: #dc3545;
-            color: white;
+            position: fixed;
+            top: 10px;
+            right: 20px;
             padding: 10px 20px;
+            background-color: #d3d3d3;
+            color: black;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease-in-out;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .logout:hover {
-            background-color: #c82333;
+            background-color: #bfbfbf;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .container {
-            width: 90%;
-            margin: auto;
+            margin-left: 270px;
+            width: 80%;
             padding-top: 50px;
             text-align: center;
             margin-bottom: 30px;
@@ -60,176 +79,251 @@
         .container h2 {
             color: #007bff;
         }
-        form {
-            width: 50%;
-            margin: auto;
-            text-align: left;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
+        .room-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .room-card {
+            background-color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        form label {
-            font-size: 16px;
-            color: #333;
-        }
-        form input, form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-        form textarea {
-            resize: vertical;
-            height: 80px;
-        }
-        form input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            cursor: pointer;
-        }
-        form input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            width: 250px;
             margin-top: 20px;
         }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        td a {
-            text-decoration: none;
-            color: #007bff;
-            padding: 5px 10px;
+        .room-card img {
+            width: 100%;
+            height: auto;
             border-radius: 5px;
-            transition: background-color 0.3s;
         }
-        td a:hover {
-            background-color: #0056b3;
-            color: white;
-        }
-        .btn-tambah, .btn-dashboard {
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .btn-tambah {
-            background-color: #28a745;
-            color: white;
-        }
-        .btn-dashboard {
+        .room-card button {
             background-color: #17a2b8;
             color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 10px;
         }
-        .btn-tambah:hover {
-            background-color: #218838;
-        }
-        .btn-dashboard:hover {
+        .room-card button:hover {
             background-color: #138496;
         }
-        /* Tambahkan CSS untuk warna tombol Pesan Kamar */
-        .available {
-            background-color: #28a745; /* Hijau */
-            color: white;
+        .details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
-        .available:hover {
-            background-color: #218838;
-            color: white;
+        .details-modal .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: left;
         }
-        .unavailable {
-            background-color: #6c757d; /* Abu-abu */
-            color: white;
-            pointer-events: none; /* Nonaktifkan klik */
+        .details-modal .modal-content h3 {
+            text-align: center;
         }
+        .details-modal .modal-content p {
+            margin: 10px 0;
+        }
+        .close-modal {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .details-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Menambahkan z-index tinggi agar modal di atas konten lainnya */
+}
+
+
+.details-modal .modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: left;
+}
+
+.details-modal .modal-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.details-modal .modal-content form input,
+.details-modal .modal-content form button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.details-modal .modal-content .close-modal {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
     </style>
 </head>
 <body>
-
-    <div class="navbar">
+    <div class="sidebar">
         <h1>OnD-Kos</h1>
         <div class="menu-bar">
-            <a href="/CRUD TEST/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/CRUD TEST/User/index3.php">Kelola User</a>
-            <a href="/CRUD TEST/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/CRUD TEST/Grafik/grafik.php">Pemasukan</a>
+            <a href="/OnD-Kos/Login/dashboarduser.php">Dashboard</a>
+            <a href="/OnD-Kos/Kamar/index2user.php">Booking Kamar</a>
+            <a href="/OnD-Kos/Pemesanan/index.php">Pemesanan dan pembayaran online</a>
+            <a href="/OnD-Kos/User/index3user.php">Feedback atau Komplain</a>
+            <a href="/OnD-Kos/User/index5.php">Pengaturan Profil</a>
         </div>
-        <a href="/CRUD TEST/Login/logout.php" class="logout">Logout</a>
     </div>
+
+    <a href="logout.php" class="logout">Logout</a>
 
     <div class="container">
-        <h2>Data Kamar</h2>
+        <h2>Daftar Kamar</h2>
 
-      
+        <div class="room-section">
+        <?php
+include('../koneksi.php');  // Menyertakan file koneksi
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Kamar</title>
+</head>
+<body>
+
+    <div class="room-section">
+    <?php
+// Query untuk mengambil data kamar
+$query = "SELECT * FROM kamar LIMIT 6";  // Query untuk mengambil 6 kamar
+$result = mysqli_query($koneksi, $query);
+
+// Cek apakah ada data kamar
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($kamar = mysqli_fetch_assoc($result)) {
+        echo "<div class='room-card'>";
+        echo "<img src='/OnD-Kos/assets/images/kamar_default.jpg' alt='Kamar'>";
+        echo "<button onclick='showDetails(" . $kamar['id_kamar'] . ", \"" . $kamar['ukuran'] . "\", \"" . $kamar['fasilitas'] . "\", \"" . $kamar['harga_kamar'] . "\", \"" . $kamar['kamar_mandi'] . "\", \"" . $kamar['ketersediaan'] . "\")'>Lihat Detail</button>";
+        echo "<button onclick='openBookingModal(" . $kamar['id_kamar'] . ")'>Booking</button>";
+        echo "</div>";
+    }
+} else {
+    echo "<p>Tidak ada data kamar tersedia.</p>";
+}
+
+mysqli_close($koneksi);  // Menutup koneksi
+?>
 
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Ukuran</th>
-                    <th>Fasilitas</th>
-                    <th>Harga</th>
-                    <th>Kamar Mandi</th>
-                    <th>Ketersediaan</th>
-                    <th>Menu</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-        // Menghubungkan ke database
-        require_once "../koneksi.php";
+    </div>
 
-        // Query untuk mendapatkan data kamar
-        $sql = "SELECT * FROM kamar";
-        $result = mysqli_query($koneksi, $sql);
+    <!-- Modal Detail Kamar -->
+    <div class="details-modal" id="details-modal">
+        <div class="modal-content">
+            <h3>Detail Kamar</h3>
+            <p><strong>ID:</strong> <span id="detail-id"></span></p>
+            <p><strong>Ukuran:</strong> <span id="detail-ukuran"></span></p>
+            <p><strong>Fasilitas:</strong> <span id="detail-fasilitas"></span></p>
+            <p><strong>Harga:</strong> <span id="detail-harga"></span></p>
+            <p><strong>Kamar Mandi:</strong> <span id="detail-mandi"></span></p>
+            <p><strong>Ketersediaan:</strong> <span id="detail-tersedia"></span></p>
+            <button class="close-modal" onclick="closeDetails()">Tutup</button>
+        </div>
+    </div>
 
-        // Jika data tersedia, tampilkan dalam tabel
-        if (mysqli_num_rows($result) > 0) {
-            while ($kamar = mysqli_fetch_assoc($result)) {
-                // Tentukan kelas berdasarkan ketersediaan
-                $btnClass = ($kamar['ketersediaan'] == "tersedia") ? "available" : "unavailable";
+    <!-- Modal Booking -->
+<div class="details-modal" id="booking-modal">
+    <div class="modal-content">
+        <h3>Form Booking</h3>
+        <form id="booking-form" action="proses_booking.php" method="POST" enctype="multipart/form-data">
+            <!-- ID Kamar disembunyikan -->
+            <input type="hidden" name="id_kamar" id="booking-id-kamar">
+            
+            <!-- Nama Pemesan -->
+            <label for="nama-pemesan">Nama Pemesan:</label>
+            <input type="text" name="nama_pemesan" id="nama-pemesan" required>
+            
+            <!-- Email Pemesan -->
+            <label for="email-pemesan">Email Pemesan:</label>
+            <input type="email" name="email_pemesan" id="email-pemesan" required>
+            
+            <!-- Nomor Telepon Pemesan -->
+            <label for="telp-pemesan">Nomor Telepon:</label>
+            <input type="tel" name="telp_pemesan" id="telp-pemesan" required>
+            
+            <!-- Tanggal Pemesanan -->
+            <label for="tanggal-pemesanan">Tanggal Pemesanan:</label>
+            <input type="date" name="tanggal_pemesanan" id="tanggal-pemesanan" required>
+            
+            <!-- Bukti Pembayaran -->
+            <label for="bukti-pembayaran">Bukti Pembayaran:</label>
+            <input type="file" name="bukti_pembayaran" id="bukti-pembayaran" accept="image/*" required>
+            
+            <!-- Tombol Submit -->
+            <button type="submit" class="submit-btn">Booking</button>
+        </form>
+        <button class="close-modal" onclick="closeBookingModal()">Tutup</button>
+    </div>
+</div>
 
-                echo "<tr>";
-                echo "<td>" . $kamar['id_kamar'] . "</td>";
-                echo "<td>" . $kamar['ukuran'] . "</td>";
-                echo "<td>" . $kamar['fasilitas'] . "</td>";
-                echo "<td>" . $kamar['harga_kamar'] . "</td>";
-                echo "<td>" . $kamar['kamar_mandi'] . "</td>";
-                echo "<td>" . $kamar['ketersediaan'] . "</td>";
-                echo "<td>
-                        <a href='edit.php?id_kamar=" . $kamar['id_kamar'] . "' class='$btnClass'>Pesan Kamar</a>
-                    </td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
+
+    <script>
+        // Fungsi untuk menampilkan detail kamar
+        function showDetails(id, ukuran, fasilitas, harga, mandi, tersedia) {
+            document.getElementById("detail-id").innerText = id;
+            document.getElementById("detail-ukuran").innerText = ukuran;
+            document.getElementById("detail-fasilitas").innerText = fasilitas;
+            document.getElementById("detail-harga").innerText = harga;
+            document.getElementById("detail-mandi").innerText = mandi;
+            document.getElementById("detail-tersedia").innerText = tersedia;
+
+            document.getElementById("details-modal").style.display = "flex";
         }
 
-        // Menutup koneksi database
-        mysqli_close($koneksi);
-        ?>
-            </tbody>
-        </table>
+        function closeDetails() {
+            document.getElementById("details-modal").style.display = "none";
+        }
 
-        <!-- Tombol Kembali ke Dashboard -->
-        <a href="/CRUD TEST/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
-    </div>
-    
+        // Fungsi untuk membuka modal booking
+        function openBookingModal(idKamar) {
+            document.getElementById("booking-id-kamar").value = idKamar;
+            document.getElementById("booking-modal").style.display = "flex";
+        }
+
+        function closeBookingModal() {
+            document.getElementById("booking-modal").style.display = "none";
+        }
+    </script>
 </body>
 </html>
