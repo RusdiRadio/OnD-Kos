@@ -1,7 +1,8 @@
 <?php
-session_start();
+session_start(); // Memulai session
 require '../koneksi.php'; // Memanggil koneksi database
 
+// Cek apakah form login sudah disubmit
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
     $password = mysqli_real_escape_string($koneksi, $_POST['password']);
@@ -16,17 +17,19 @@ if (isset($_POST['login'])) {
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
 
-        // Verifikasi password (tanpa hashing)
+        // Verifikasi password (pastikan Anda menggunakan hashing di password untuk keamanan)
         if ($password === $row['password']) {
+            // Set session untuk login
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['keterangan']; // role diambil dari 'keterangan' di level_user
+            $_SESSION['id_user'] = $row['id_user']; // Tambahkan id_user ke session
 
             // Redirect sesuai role
             if ($row['keterangan'] === 'Admin') {
-                header("Location: dashboardadmin.php");
+                header("Location: dashboardadmin.php"); // Halaman Admin
                 exit;
             } else {
-                header("Location: dashboarduser.php");
+                header("Location: dashboarduser.php"); // Halaman User
                 exit;
             }
         } else {
@@ -37,6 +40,7 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">

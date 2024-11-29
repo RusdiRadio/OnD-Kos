@@ -181,11 +181,11 @@
 <div class="sidebar">
     <h1>OnD-Kos</h1>
     <div class="menu-bar">
-        <a href="/OnD-Kos/Login/dashboarduser.php">Dashboard</a>
-        <a href="/OnD-Kos/Kamar/index2user.php">Booking Kamar</a>
-        <a href="/OnD-Kos/Pemesanan/index.php">Pemesanan dan Pembayaran Online</a>
-        <a href="/OnD-Kos/User/index3user.php">Feedback atau Komplain</a>
-        <a href="/OnD-Kos/User/index5.php">Pengaturan Profil</a>
+        <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
+        <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
+        <a href="/OnDKos/Pemesanan/index.php">Pemesanan dan Pembayaran Online</a>
+        <a href="/OnDKos/User/index3user.php">Feedback atau Komplain</a>
+        <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
     </div>
 </div>
 
@@ -195,7 +195,7 @@
     <div class="container">
         <div class="form-container">
             <h2>Feedback atau Komplain</h2>
-            <form method="POST" action="/OnD-Kos/Feedback/submit.php">
+            <form method="POST" action="/OnDKos/Feedback/submit.php">
                 <label for="subjek">Subjek:</label>
                 <input type="text" id="subjek" name="subjek" placeholder="Masukkan subjek" required>
 

@@ -191,11 +191,11 @@ mysqli_close($koneksi);
 <div class="sidebar">
     <h1>OnD-Kos</h1>
     <div class="menu-bar">
-        <a href="/OnD-Kos/Login/dashboarduser.php">Dashboard</a>
-        <a href="/OnD-Kos/Kamar/index2user.php">Booking Kamar</a>
-        <a href="/OnD-Kos/Pemesanan/index.php">Pemesanan dan pembayaran online</a>
-        <a href="/OnD-Kos/User/index3user.php">Feedback atau Komplain</a>
-        <a href="/OnD-Kos/User/index5.php">Pengaturan Profil</a>
+        <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
+        <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
+        <a href="/OnDKos/Pemesanan/index.php">Pemesanan dan pembayaran online</a>
+        <a href="/OnDKos/User/index3user.php">Feedback atau Komplain</a>
+        <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
     </div>
 </div>
 

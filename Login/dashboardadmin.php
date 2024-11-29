@@ -170,6 +170,7 @@ mysqli_close($koneksi);
             <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
             <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
             <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
+            <a href="/OnDKos/Transaksi/index6.php">Transaksi</a>
         </div>
         <a href="logout.php" class="logout">Logout</a>
     </div>

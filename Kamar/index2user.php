@@ -196,22 +196,22 @@
     <div class="sidebar">
         <h1>OnD-Kos</h1>
         <div class="menu-bar">
-            <a href="/OnD-Kos/Login/dashboarduser.php">Dashboard</a>
-            <a href="/OnD-Kos/Kamar/index2user.php">Booking Kamar</a>
-            <a href="/OnD-Kos/Pemesanan/index.php">Pemesanan dan pembayaran online</a>
-            <a href="/OnD-Kos/User/index3user.php">Feedback atau Komplain</a>
-            <a href="/OnD-Kos/User/index5.php">Pengaturan Profil</a>
+            <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
+            <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
+            <a href="/OnDKos/Pemesanan/index.php">Pemesanan dan pembayaran online</a>
+            <a href="/OnDKos/User/index3user.php">Feedback atau Komplain</a>
+            <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
         </div>
     </div>
 
-    <a href="logout.php" class="logout">Logout</a>
+    <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
 
     <div class="container">
         <h2>Daftar Kamar</h2>
 
         <div class="room-section">
         <?php
-include('../koneksi.php');  // Menyertakan file koneksi
+require('../koneksi.php');  // Menyertakan file koneksi
 ?>
 
 <!DOCTYPE html>
@@ -226,14 +226,14 @@ include('../koneksi.php');  // Menyertakan file koneksi
     <div class="room-section">
     <?php
 // Query untuk mengambil data kamar
-$query = "SELECT * FROM kamar LIMIT 6";  // Query untuk mengambil 6 kamar
+$query = "SELECT * FROM kamar";  // Query untuk mengambil 6 kamar
 $result = mysqli_query($koneksi, $query);
 
 // Cek apakah ada data kamar
 if ($result && mysqli_num_rows($result) > 0) {
     while ($kamar = mysqli_fetch_assoc($result)) {
         echo "<div class='room-card'>";
-        echo "<img src='/OnD-Kos/assets/images/kamar_default.jpg' alt='Kamar'>";
+        echo "<img src='/OnDKos/Login/ngelu.jpg' alt='Kamar'>";
         echo "<button onclick='showDetails(" . $kamar['id_kamar'] . ", \"" . $kamar['ukuran'] . "\", \"" . $kamar['fasilitas'] . "\", \"" . $kamar['harga_kamar'] . "\", \"" . $kamar['kamar_mandi'] . "\", \"" . $kamar['ketersediaan'] . "\")'>Lihat Detail</button>";
         echo "<button onclick='openBookingModal(" . $kamar['id_kamar'] . ")'>Booking</button>";
         echo "</div>";
@@ -263,39 +263,56 @@ mysqli_close($koneksi);  // Menutup koneksi
     </div>
 
     <!-- Modal Booking -->
-<div class="details-modal" id="booking-modal">
+    <div class="details-modal" id="booking-modal">
     <div class="modal-content">
         <h3>Form Booking</h3>
         <form id="booking-form" action="proses_booking.php" method="POST" enctype="multipart/form-data">
-            <!-- ID Kamar disembunyikan -->
+            <!-- ID Kamar (Hidden) -->
             <input type="hidden" name="id_kamar" id="booking-id-kamar">
-            
+
+            <!-- Pilih ID User -->
+            <label for="id-user">Pilih ID User:</label>
+            <select name="id_user" id="id-user" required>
+                <option value="">Pilih ID User</option>
+                <?php
+                require('../koneksi.php');
+                $query_users = "SELECT id_user, nama_user FROM daftar_user";
+                $result_users = mysqli_query($koneksi, $query_users);
+                while ($user = mysqli_fetch_assoc($result_users)) {
+                    echo "<option value='{$user['id_user']}'>{$user['nama_user']} (ID: {$user['id_user']})</option>";
+                }
+                mysqli_close($koneksi);
+                ?>
+            </select>
+
+            <!-- Input Password -->
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+
             <!-- Nama Pemesan -->
             <label for="nama-pemesan">Nama Pemesan:</label>
             <input type="text" name="nama_pemesan" id="nama-pemesan" required>
-            
+
             <!-- Email Pemesan -->
             <label for="email-pemesan">Email Pemesan:</label>
             <input type="email" name="email_pemesan" id="email-pemesan" required>
-            
-            <!-- Nomor Telepon Pemesan -->
+
+            <!-- Nomor Telepon -->
             <label for="telp-pemesan">Nomor Telepon:</label>
-            <input type="tel" name="telp_pemesan" id="telp-pemesan" required>
-            
+            <input type="tel" name="nomor_telpon" id="telp-pemesan" required>
+
             <!-- Tanggal Pemesanan -->
             <label for="tanggal-pemesanan">Tanggal Pemesanan:</label>
-            <input type="date" name="tanggal_pemesanan" id="tanggal-pemesanan" required>
-            
-            <!-- Bukti Pembayaran -->
-            <label for="bukti-pembayaran">Bukti Pembayaran:</label>
-            <input type="file" name="bukti_pembayaran" id="bukti-pembayaran" accept="image/*" required>
-            
-            <!-- Tombol Submit -->
+            <input type="date" name="tanggal_transaksi" id="tanggal-pemesanan" required>
+
+            <!-- Submit -->
             <button type="submit" class="submit-btn">Booking</button>
         </form>
+
         <button class="close-modal" onclick="closeBookingModal()">Tutup</button>
     </div>
 </div>
+
 
 
     <script>
