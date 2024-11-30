@@ -80,6 +80,10 @@ require('../koneksi.php'); // Koneksi ke database
             background-color: #dc3545;
             color: white;
         }
+        .bukti-pembayaran img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -87,16 +91,17 @@ require('../koneksi.php'); // Koneksi ke database
         <h2>Daftar Transaksi</h2>
         <?php
         // Query untuk mendapatkan data transaksi
-        $query = "SELECT t.id_transaksi, t.id_user, d.nama_user 
+        $query = "SELECT t.id_transaksi, t.id_user, d.nama_user, k.id_kamar, t.bukti_pembayaran
                   FROM transaksi t 
-                  JOIN daftar_user d ON t.id_user = d.id_user";
+                  JOIN daftar_user d ON t.id_user = d.id_user
+                  JOIN kamar k ON t.id_kamar = k.id_kamar"; // Pastikan `bukti_pembayaran` ada di tabel transaksi
         $result = mysqli_query($koneksi, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<div class='transaction'>";
-                echo "<p><strong>{$row['nama_user']}</strong> melakukan pemesanan</p>";
-                echo "<button onclick='openModal({$row['id_transaksi']})'>Cek Pesanan</button>";
+                echo "<p><strong>{$row['nama_user']}</strong> melakukan pemesanan atas kamar <strong>{$row['id_kamar']}</strong></p>";
+                echo "<button onclick='openModal({$row['id_transaksi']}, \"{$row['bukti_pembayaran']}\")'>Cek Pesanan</button>";
                 echo "</div>";
             }
         } else {
@@ -130,13 +135,26 @@ require('../koneksi.php'); // Koneksi ke database
                 <button type="submit">Konfirmasi Pesanan</button>
                 <button type="button" class="close-btn" onclick="closeModal()">Tutup</button>
             </form>
+
+            <!-- Lihat Bukti Pembayaran -->
+            <div id="bukti-container" class="bukti-pembayaran">
+                <!-- Gambar bukti pembayaran akan muncul di sini -->
+            </div>
         </div>
     </div>
 
     <script>
-        function openModal(idTransaksi) {
+        function openModal(idTransaksi, buktiPembayaran) {
             document.getElementById('modal-id-transaksi').value = idTransaksi;
             document.getElementById('modal').style.display = 'flex';
+
+            // Tampilkan bukti pembayaran jika ada
+            if (buktiPembayaran) {
+                document.getElementById('bukti-container').innerHTML = 
+                    `<h4>Bukti Pembayaran:</h4><img src='../uploads/bukti_pembayaran/${buktiPembayaran}' alt='Bukti Pembayaran'>`;
+            } else {
+                document.getElementById('bukti-container').innerHTML = "<p>Bukti pembayaran belum diunggah.</p>";
+            }
         }
 
         function closeModal() {

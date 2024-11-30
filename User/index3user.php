@@ -183,7 +183,7 @@
     <div class="menu-bar">
         <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
         <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
-        <a href="/OnDKos/Pemesanan/index.php">Pemesanan dan Pembayaran Online</a>
+        <a href="/OnDKos/Transaksi/index7.php">Pemesanan dan pembayaran online</a>
         <a href="/OnDKos/User/index3user.php">Feedback atau Komplain</a>
         <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
     </div>

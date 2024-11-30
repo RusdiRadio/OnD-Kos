@@ -132,35 +132,49 @@
     </div>
 
     <?php
-    require '../koneksi.php';
+require '../koneksi.php';
 
-    $bulanLengkap = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Desember"];
-    $pemasukanData = array_fill(0, 7, 0);
+// Daftar nama bulan lengkap
+$bulanLengkap = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    $query = "SELECT MONTH(tanggal_transaksi) AS bulan, SUM(jumlah_bayar) AS total_pemasukan
-              FROM transaksi
-              WHERE status_pembayaran = 'sudah bayar' AND MONTH(tanggal_transaksi) <= 7
-              GROUP BY bulan
-              ORDER BY bulan";
+// Inisialisasi array pemasukan dengan nilai default 0
+$pemasukanData = array_fill(0, 12, 0); // 12 bulan penuh
 
-    $result = mysqli_query($koneksi, $query);
+// Query untuk mendapatkan data pemasukan
+$query = "SELECT MONTH(tanggal_transaksi) AS bulan, SUM(jumlah_bayar) AS total_pemasukan
+          FROM transaksi
+          WHERE status_pembayaran = 'sudah bayar'
+          GROUP BY bulan
+          ORDER BY bulan";
 
-    if (!$result) {
-        die("Query Error: " . mysqli_error($koneksi));
-    }
+$result = mysqli_query($koneksi, $query);
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $index = $row['bulan'] - 1;
-        $pemasukanData[$index] = $row['total_pemasukan'];
-    }
+// Jika query gagal, tampilkan pesan error
+if (!$result) {
+    die("Query Error: " . mysqli_error($koneksi));
+}
 
-    mysqli_close($koneksi);
-    ?>
+// Memproses hasil query untuk memasukkan data pemasukan
+while ($row = mysqli_fetch_assoc($result)) {
+    $index = $row['bulan'] - 1; // Konversi bulan ke indeks array (0-based)
+    $pemasukanData[$index] = $row['total_pemasukan'];
+}
 
-    <script>
+// Tutup koneksi ke database
+mysqli_close($koneksi);
+?>
+
+
+<script>
+    // Data bulan dan pemasukan dari PHP
     const bulan = <?php echo json_encode($bulanLengkap); ?>;
     const pemasukan = <?php echo json_encode($pemasukanData); ?>;
 
+    // Debugging: Pastikan data ditampilkan di console
+    console.log("Bulan:", bulan);
+    console.log("Pemasukan:", pemasukan);
+
+    // Buat grafik dengan Chart.js
     const ctx = document.getElementById('incomeChart').getContext('2d');
     const incomeChart = new Chart(ctx, {
         type: 'line',
@@ -201,7 +215,8 @@
             }
         }
     });
-    </script>
+</script>
+
 
     <div class="footer">
         <p>&copy; 2024 Kos Management System. All rights reserved.</p>
