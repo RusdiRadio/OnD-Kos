@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $kamarmandi = $_POST['kamar_mandi'];
     $ketersediaan = $_POST['ketersediaan'];
    
-
+    
     // Query untuk menambahkan data ke tabel kamar
     $sql = "INSERT INTO kamar (ukuran, fasilitas, harga_kamar, kamar_mandi, ketersediaan) VALUES ('$ukuran', '$fasilitas', '$harga', '$kamarmandi', '$ketersediaan')";
 

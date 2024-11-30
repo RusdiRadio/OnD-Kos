@@ -44,41 +44,9 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Kost</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Gaya tampilan login box */
-        .login-box {
-            width: 300px;
-            margin: 20px auto;
-            padding: 30px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="http://localhost/OND-KOS/styles.css">
+
+
 </head>
 <body>
     <header>
