@@ -91,16 +91,18 @@ require('../koneksi.php'); // Koneksi ke database
         <h2>Daftar Transaksi</h2>
         <?php
         // Query untuk mendapatkan data transaksi
-        $query = "SELECT t.id_transaksi, t.id_user, d.nama_user, k.id_kamar, t.bukti_pembayaran
+        $query = "SELECT t.id_transaksi, t.id_user, d.nama_user, k.id_kamar, t.bukti_pembayaran, t.status_pembayaran
                   FROM transaksi t 
                   JOIN daftar_user d ON t.id_user = d.id_user
-                  JOIN kamar k ON t.id_kamar = k.id_kamar"; // Pastikan `bukti_pembayaran` ada di tabel transaksi
+                  JOIN kamar k ON t.id_kamar = k.id_kamar"; // Pastikan ada kolom status_pembayaran
         $result = mysqli_query($koneksi, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
+                // Menentukan pesan berdasarkan status pembayaran
+                $statusPesanan = ($row['status_pembayaran'] == 'sudah bayar') ? "<span style='color: green; font-weight: bold;'>Pesanan Selesai</span>" : "";
                 echo "<div class='transaction'>";
-                echo "<p><strong>{$row['nama_user']}</strong> melakukan pemesanan atas kamar <strong>{$row['id_kamar']}</strong></p>";
+                echo "<p><strong>{$row['nama_user']}</strong> melakukan pemesanan atas kamar <strong>{$row['id_kamar']}</strong> $statusPesanan</p>";
                 echo "<button onclick='openModal({$row['id_transaksi']}, \"{$row['bukti_pembayaran']}\")'>Cek Pesanan</button>";
                 echo "</div>";
             }
@@ -117,18 +119,14 @@ require('../koneksi.php'); // Koneksi ke database
         <div class="modal-content">
             <h3>Detail Pemesanan</h3>
             <form id="form-transaksi" action="konfirmasi.php" method="POST">
-                <!-- ID Transaksi (Hidden) -->
                 <input type="hidden" name="id_transaksi" id="modal-id-transaksi">
 
-                <!-- Periode -->
                 <label for="periode">Periode:</label>
                 <input type="text" name="periode" id="periode" required>
 
-                <!-- Jumlah Bayar -->
                 <label for="jumlah_bayar">Jumlah Bayar:</label>
                 <input type="text" name="jumlah_bayar" id="jumlah_bayar" required>
 
-                <!-- Metode Pembayaran -->
                 <label for="metode_pembayaran">Metode Pembayaran:</label>
                 <input type="text" name="metode_pembayaran" id="metode_pembayaran" required>
 
@@ -136,10 +134,7 @@ require('../koneksi.php'); // Koneksi ke database
                 <button type="button" class="close-btn" onclick="closeModal()">Tutup</button>
             </form>
 
-            <!-- Lihat Bukti Pembayaran -->
-            <div id="bukti-container" class="bukti-pembayaran">
-                <!-- Gambar bukti pembayaran akan muncul di sini -->
-            </div>
+            <div id="bukti-container" class="bukti-pembayaran"></div>
         </div>
     </div>
 
@@ -148,7 +143,6 @@ require('../koneksi.php'); // Koneksi ke database
             document.getElementById('modal-id-transaksi').value = idTransaksi;
             document.getElementById('modal').style.display = 'flex';
 
-            // Tampilkan bukti pembayaran jika ada
             if (buktiPembayaran) {
                 document.getElementById('bukti-container').innerHTML = 
                     `<h4>Bukti Pembayaran:</h4><img src='../uploads/bukti_pembayaran/${buktiPembayaran}' alt='Bukti Pembayaran'>`;

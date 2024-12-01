@@ -29,42 +29,6 @@ if ($row = mysqli_fetch_assoc($result)) {
 // Tutup statement untuk username
 mysqli_stmt_close($stmt);
 
-// Query untuk menghitung total kamar
-$sql_total_kamar = "SELECT COUNT(id_kamar) AS total_kamar, 
-                            SUM(CASE WHEN ketersediaan = 'tersedia' THEN 1 ELSE 0 END) AS kamar_tersedia, 
-                            SUM(CASE WHEN ketersediaan = 'kosong' THEN 1 ELSE 0 END) AS kamar_kosong 
-                    FROM kamar";
-$result_kamar = mysqli_query($koneksi, $sql_total_kamar);
-$total_kamar = 0;
-$kamar_tersedia = 0;
-$kamar_kosong = 0;
-
-if ($row_kamar = mysqli_fetch_assoc($result_kamar)) {
-    $total_kamar = $row_kamar['total_kamar'];
-    $kamar_tersedia = $row_kamar['kamar_tersedia'];
-    $kamar_kosong = $row_kamar['kamar_kosong'];
-}
-
-// Query untuk menghitung total penghuni
-$sql_total_penghuni = "SELECT COUNT(id_penghuni) AS total_penghuni FROM penghuni";
-$result_penghuni = mysqli_query($koneksi, $sql_total_penghuni);
-$total_penghuni = 0;
-
-if ($row_penghuni = mysqli_fetch_assoc($result_penghuni)) {
-    $total_penghuni = $row_penghuni['total_penghuni'];
-}
-
-// Query untuk menghitung total pemasukan
-$sql_total_pemasukan = "SELECT SUM(CAST(jumlah_bayar AS DECIMAL(10, 2))) AS total_pemasukan 
-                        FROM transaksi 
-                        WHERE status_pembayaran != 'Belum Bayar'";
-$result_pemasukan = mysqli_query($koneksi, $sql_total_pemasukan);
-$total_pemasukan = 0;
-
-if ($row_pemasukan = mysqli_fetch_assoc($result_pemasukan)) {
-    $total_pemasukan = $row_pemasukan['total_pemasukan'];
-}
-
 // Tutup koneksi database
 mysqli_close($koneksi);
 ?>
@@ -75,7 +39,6 @@ mysqli_close($koneksi);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -130,33 +93,16 @@ mysqli_close($koneksi);
         .container h2 {
             color: #007bff; /* Biru */
         }
-        .card-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .card {
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            width: 200px;
-        }
-        .card h3 {
-            margin: 0;
-            color: #333;
-            font-size: 20px;
-        }
-        .card p {
-            color: #555; /* Abu-abu */
-            font-size: 16px;
-        }
         .chart-container {
             width: 100%;
-            height: 200px; /* Tinggi chart */
+            height: 500px; /* Sesuaikan tinggi iframe */
+            display: flex;
+            justify-content: center;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
@@ -178,49 +124,11 @@ mysqli_close($koneksi);
     <div class="container">
         <h2>Selamat datang, Admin <?= htmlspecialchars($nama_user); ?>!</h2>
 
-        <!-- Card-container untuk menampilkan total kamar, penghuni, dan pemasukan -->
-        <div class="card-container">
-            <div class="card">
-                <h3>Total Kamar</h3>
-                <p><?= $total_kamar; ?> kamar</p>
-                <div class="chart-container">
-                    <canvas id="kamarChart"></canvas>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Total Penghuni</h3>
-                <p><?= $total_penghuni; ?> penghuni</p>
-            </div>
-            <div class="card">
-                <h3>Total Pemasukan</h3>
-                <p>Rp <?= number_format($total_pemasukan, 2, ',', '.'); ?></p>
-            </div>
+        <!-- Menampilkan Power BI Dashboard -->
+        <div class="chart-container">
+            <iframe title="tugas akhir" src="https://app.powerbi.com/reportEmbed?reportId=f452416b-2885-4eb5-a354-26fa429ec3cd&autoAuth=true&ctid=5263cc81-5912-42c4-abc1-d0f1b668b530" allowFullScreen="true"></iframe>
         </div>
     </div>
-
-    <script>
-        const ctx = document.getElementById('kamarChart').getContext('2d');
-        const kamarChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Tersedia', 'Kosong'],
-                datasets: [{
-                    label: 'Ketersediaan Kamar',
-                    data: [<?= $kamar_tersedia; ?>, <?= $kamar_kosong; ?>],
-                    backgroundColor: ['#36a2eb', '#ff6384'], /* Biru dan merah muda */
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top',
-                    },
-                },
-            }
-        });
-    </script>
 
 </body>
 </html>

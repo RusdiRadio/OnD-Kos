@@ -1,159 +1,149 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #e0f7fa; /* Latar belakang biru muda */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f7fa; /* Latar belakang biru muda */
 }
 
 header {
-  background: #0288d1; /* Biru lebih gelap untuk header */
-  color: #fff; /* Teks putih */
-  padding: 10px 0;
-  text-align: center;
+    background: #0288d1; /* Biru lebih gelap untuk header */
+    color: #fff; /* Teks putih */
+    padding: 10px 0;
+    text-align: center;
 }
 
 nav {
-  background-color: #0288d1; /* Biru */
-  padding: 10px; /* Tambahkan padding */
+    background-color: #0288d1; /* Biru */
+    padding: 10px; /* Tambahkan padding */
 }
 
 nav ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 nav ul li {
-  display: inline;
-  margin: 0 15px;
+    display: inline;
+    margin: 0 15px;
 }
 
 nav ul li a {
-  color: #ffffff; /* Teks putih */
-  text-decoration: none; /* Menghapus garis bawah */
+    color: #ffffff; /* Teks putih */
+    text-decoration: none; /* Menghapus garis bawah */
 }
 
+
 section {
-  padding: 20px;
+    padding: 20px;
 }
 
 .kost-image {
-  max-width: 100%;
-  height: auto;
-  margin: 20px 0;
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
 }
 
 .kost-card {
-  background: white; /* Latar belakang putih untuk kost card */
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin: 10px 0;
-  cursor: pointer;
+    background: white; /* Latar belakang putih untuk kost card */
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
 }
 
 footer {
-  text-align: center;
-  padding: 10px 0;
-  background: #0288d1; /* Biru lebih gelap untuk footer */
-  color: #fff; /* Teks putih */
+    text-align: center;
+    padding: 10px 0;
+    background: #0288d1; /* Biru lebih gelap untuk footer */
+    color: #fff; /* Teks putih */
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-  margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
 }
 
 form label {
-  margin: 5px 0 2px;
+    margin: 5px 0 2px;
 }
 
 form input {
-  padding: 8px;
-  margin-bottom: 10px;
+    padding: 8px;
+    margin-bottom: 10px;
 }
 
 form button {
-  padding: 10px;
-  background-color: #4db6e4; /* Biru muda untuk tombol */
-  color: white;
-  border: none;
-  cursor: pointer;
+    padding: 10px;
+    background-color: #4db6e4; /* Biru muda untuk tombol */
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
-input[type="text"],
-select {
-  margin-bottom: 15px;
-  width: 100%;
-  padding: 8px;
+input[type="text"], select {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 8px;
 }
 
 #home {
-  text-align: center;
-  padding: 20px;
+    text-align: center;
+    padding: 20px;
 }
 
+
 #profile {
-  width: 80%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #f0f8ff; /* Latar belakang biru muda */
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f0f8ff; /* Latar belakang biru muda */
 }
 
 #profile h2 {
-  margin-bottom: 20px; /* Jarak antara judul dan konten */
+    margin-bottom: 20px; /* Jarak antara judul dan konten */
 }
 .profil-item {
-  margin-bottom: 15px;
-  font-size: 16px; /* Ukuran font */
+    margin-bottom: 15px;
+    font-size: 16px; /* Ukuran font */
 }
 
 /* Definisi animasi untuk elemen masuk dari bawah */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Pastikan bagian section tersembunyi di awal */
 section {
-  opacity: 0;
-  transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 /* Tambahkan kelas show untuk menampilkan animasi */
 section.show {
-  animation: fadeInUp 1s ease forwards;
+    animation: fadeInUp 1s ease forwards;
 }
 
 /* Memilih bagian spesifik dengan animasi yang lebih dinamis */
-#home {
-  animation-delay: 0.3s;
-}
-#profile {
-  animation-delay: 0.5s;
-}
-#daftar-kamar {
-  animation-delay: 0.7s;
-}
-#tentang-kami {
-  animation-delay: 0.9s;
-}
-#fasilitas {
-  animation-delay: 1.1s;
-}
-#kontak {
-  animation-delay: 1.3s;
-}
-#login {
-  animation-delay: 1.5s;
-}
+#home { animation-delay: 0.3s; }
+#profile { animation-delay: 0.5s; }
+#daftar-kamar { animation-delay: 0.7s; }
+#tentang-kami { animation-delay: 0.9s; }
+#fasilitas { animation-delay: 1.1s; }
+#kontak { animation-delay: 1.3s; }
+#login { animation-delay: 1.5s; }
+
+
+
