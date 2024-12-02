@@ -95,7 +95,7 @@ mysqli_close($koneksi);
         }
         .chart-container {
             width: 100%;
-            height: 500px; /* Sesuaikan tinggi iframe */
+            height: 80vh; /* Sesuaikan tinggi iframe */
             display: flex;
             justify-content: center;
         }
@@ -125,9 +125,17 @@ mysqli_close($koneksi);
         <h2>Selamat datang, Admin <?= htmlspecialchars($nama_user); ?>!</h2>
 
         <!-- Menampilkan Power BI Dashboard -->
+       <!-- Menampilkan Power BI Dashboard -->
         <div class="chart-container">
-            <iframe title="tugas akhir" src="https://app.powerbi.com/reportEmbed?reportId=f452416b-2885-4eb5-a354-26fa429ec3cd&autoAuth=true&ctid=5263cc81-5912-42c4-abc1-d0f1b668b530" allowFullScreen="true"></iframe>
+            <iframe title="tugas akhir" 
+                    width="100%" 
+                    height="800px" 
+                    src="https://app.powerbi.com/reportEmbed?reportId=f452416b-2885-4eb5-a354-26fa429ec3cd&autoAuth=true&ctid=5263cc81-5912-42c4-abc1-d0f1b668b530" 
+                    frameborder="0" 
+                    allowFullScreen="true">
+            </iframe>
         </div>
+
     </div>
 
 </body>
