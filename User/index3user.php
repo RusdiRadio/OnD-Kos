@@ -162,7 +162,7 @@ include '../Sidebar/user.php';?>
     <div class="container">
         <div class="form-container">
             <h2>Feedback atau Komplain</h2>
-            <form method="POST" action="/OnDKos/Feedback/submit.php">
+            <form method="POST" action="create_feedback.php">
                 <label for="subjek">Subjek:</label>
                 <input type="text" id="subjek" name="subjek" placeholder="Masukkan subjek" required>
 

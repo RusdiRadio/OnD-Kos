@@ -1,22 +1,28 @@
 <?php
-include('koneksi.php');
+session_start();
+include '../koneksi.php'; // Pastikan file koneksi dimasukkan dengan benar
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $customer_id = $_POST['customer_id'];
-    $feedback_text = $_POST['feedback_text'];
-
-    // Query untuk menyimpan feedback ke database
-    $stmt = $mysqli->prepare("INSERT INTO feedback (customer_id, feedback_text) VALUES (?, ?)");
-    $stmt->bind_param("is", $customer_id, $feedback_text);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "Feedback berhasil ditambahkan.";
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['id_user'])) {
+    header("Location: ../login.php");
+    exit;
 }
-?>
 
-<form method="post">
-    Customer ID: <input type="text" name="customer_id" required><br>
-    Feedback: <textarea name="feedback_text" required></textarea><br>
-    <button type="submit">Kirim Feedback</button>
-</form>
+// Ambil data dari form
+$id_user = $_SESSION['id_user'];
+$subjek = mysqli_real_escape_string($koneksi, $_POST['subjek']);
+$pesan = mysqli_real_escape_string($koneksi, $_POST['pesan']);
+
+// Masukkan data ke tabel feedback
+$query = "INSERT INTO feedback (id_user, subjek, pesan) VALUES ('$id_user', '$subjek', '$pesan')";
+if (mysqli_query($koneksi, $query)) {
+    // Redirect ke halaman sukses
+    header("Location:index3user.php");
+    exit;
+} else {
+    echo "Gagal menyimpan feedback: " . mysqli_error($koneksi);
+}
+
+// Tutup koneksi
+mysqli_close($koneksi);
+?>
