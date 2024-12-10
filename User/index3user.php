@@ -11,28 +11,6 @@
             padding: 0;
             background-color: #e6f7ff; /* Biru muda */
         }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #007bff; /* Biru */
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-        }
-
         .menu-bar {
             flex-grow: 1;
         }
@@ -177,20 +155,9 @@
     </style>
 </head>
 <body>
-
-<div class="sidebar">
-    <h1>OnD-Kos</h1>
-    <div class="menu-bar">
-        <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
-        <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
-        <a href="/OnDKos/Transaksi/index7.php">Pemesanan dan pembayaran online</a>
-        <a href="/OnDKos/User/index3user.php">Feedback atau Komplain</a>
-        <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
-    </div>
-</div>
-
 <a href="logout.php" class="logout">Logout</a>
-
+<?php
+include '../Sidebar/user.php';?>
 <main>
     <div class="container">
         <div class="form-container">

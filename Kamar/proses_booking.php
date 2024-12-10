@@ -1,48 +1,48 @@
 <?php
-// Include file koneksi ke database
 require('../koneksi.php');
+session_start();
 
-// Periksa apakah form telah disubmit
+// Ambil ID User dari session
+if (!isset($_SESSION['id_user'])) {
+    die("Anda harus login untuk melakukan booking.");
+}
+$id_user = intval($_SESSION['id_user']);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ambil data dari form
-    $id_kamar = $_POST['id_kamar'];
-    $id_user = $_POST['id_user'];
-    $nama_pemesan = $_POST['nama_pemesan'];
-    $email_pemesan = $_POST['email_pemesan'];
-    $nomor_telpon = $_POST['nomor_telpon'];
-    $tanggal_transaksi = $_POST['tanggal_transaksi'];
+    // Ambil dan validasi data dari form
+    $id_kamar = mysqli_real_escape_string($koneksi, $_POST['id_kamar']);
+    $nama_pemesan = mysqli_real_escape_string($koneksi, $_POST['nama_pemesan']);
+    $email_pemesan = mysqli_real_escape_string($koneksi, $_POST['email_pemesan']);
+    $nomor_telpon = mysqli_real_escape_string($koneksi, $_POST['nomor_telpon']);
+    $tanggal_transaksi = mysqli_real_escape_string($koneksi, $_POST['tanggal_transaksi']);
 
     // Default values untuk kolom lainnya
     $jumlah_bayar = 0;
     $status_pembayaran = "belum bayar";
     $metode_pembayaran = "belum bayar";
 
+    // Debugging: Cek data
+    echo "<pre>";
+    print_r(compact('id_kamar', 'id_user', 'nama_pemesan', 'email_pemesan', 'nomor_telpon', 'tanggal_transaksi'));
+    echo "</pre>";
+
     // Query untuk memasukkan data ke tabel transaksi
     $query = "INSERT INTO transaksi (id_kamar, id_user, nama_pemesan, email_pemesan, nomor_telpon, tanggal_transaksi, jumlah_bayar, status_pembayaran, metode_pembayaran) 
-              VALUES ('$id_kamar', '$id_user', '$nama_pemesan', '$email_pemesan', '$nomor_telpon', '$tanggal_transaksi', '$jumlah_bayar', '$status_pembayaran', '$metode_pembayaran')";
+              VALUES ('$id_kamar', $id_user, '$nama_pemesan', '$email_pemesan', '$nomor_telpon', '$tanggal_transaksi', $jumlah_bayar, '$status_pembayaran', '$metode_pembayaran')";
 
-    // Eksekusi query
     if (mysqli_query($koneksi, $query)) {
-        // Redirect ke halaman sukses atau tampilkan pesan berhasil
         echo "<script>
             alert('Booking berhasil!');
-            window.location.href = '/OnDKos/Kamar/index2user.php'; // Sesuaikan path dengan halaman yang diinginkan
+            window.location.href = '/OnDKos/Kamar/index2user.php';
         </script>";
     } else {
-        // Tampilkan pesan error jika query gagal
         echo "<script>
             alert('Gagal melakukan booking: " . mysqli_error($koneksi) . "');
             window.history.back();
         </script>";
     }
-
-    var_dump($id_user);
-
-
-    // Tutup koneksi
     mysqli_close($koneksi);
 } else {
-    // Jika file diakses langsung, redirect ke halaman utama
     header("Location: /OnDKos/Kamar/index2user.php");
     exit();
 }
