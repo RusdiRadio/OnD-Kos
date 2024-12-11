@@ -1,5 +1,8 @@
+/* The provided code snippet is creating a sidebar navigation menu using HTML and CSS. Here's a
+breakdown of what each part of the code does: */
 <div class="sidebar">
-    <h1>OnD-Kos</h1>
+<h1><i class="bi bi-house-door"></i> OnD-Kos</h1>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <div class="menu-bar">
         <a href="/OnDKos/Login/dashboardadmin.php">Dashboard</a>
         <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
@@ -8,6 +11,7 @@
         <a href="/OnDKos/User/index4.php">Kelola Penghuni</a>
         <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
         <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
+        <a href="/OnDkOS/User/admin_feedback.php">Kelola Feedback</a>
     </div>
 </div>
 
@@ -31,6 +35,10 @@
         margin-bottom: 20px;
         text-align: center;
         color: white;
+        display: flex;
+        align-items: center; /* Vertikal tengah */
+        justify-content: center; /* Horizontal tengah */
+        gap: 10px; /* Jarak antara ikon dan teks */
     }
 
     .menu-bar {
@@ -60,3 +68,4 @@
         transform: scale(0.95); /* Efek mengecil saat diklik */
     }
 </style>
+
