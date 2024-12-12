@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (mysqli_query($koneksi, $query)) {
         $_SESSION['feedback_success'] = true; // Set sesi untuk notifikasi sukses
-        header('Location: feedback.php'); // Redirect ke halaman feedback
+        header('Location: feedback_user.php'); // Redirect ke halaman feedback
         exit();
     } else {
         echo "Error: " . mysqli_error($koneksi);

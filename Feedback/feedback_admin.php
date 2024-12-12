@@ -79,26 +79,6 @@ if (!$result) {
             display: flex;
         }
 
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #007bff;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-        }
 
         .menu-bar {
             flex-grow: 1;

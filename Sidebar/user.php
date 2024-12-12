@@ -1,11 +1,10 @@
 <div class="sidebar">
-    <h1><i class="bi bi-house-door"></i> OnD-Kos</h1>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <h1>OnD-Kos</h1>
     <div class="menu-bar">
         <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
         <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
         <a href="/OnDKos/Transaksi/index7.php">Pemesanan dan pembayaran online</a>
-        <a href="/OnDKos/User/feedback.php">Feedback atau Komplain</a>
+        <a href="/OnDKos/Feedback/feedback_user.php">Feedback atau Komplain</a>
         <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
     </div>
 </div>
@@ -20,7 +19,7 @@
         top: 0;
         left: 0;
         display: flex;
-        flex-direction: column; /* Pastikan elemen dalam sidebar mengatur secara kolom */
+        flex-direction: column;
         padding: 20px;
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
@@ -30,17 +29,10 @@
         margin-bottom: 20px;
         text-align: center;
         color: white;
-        display: flex;
-        align-items: center; /* Vertikal tengah */
-        justify-content: center; /* Horizontal tengah */
-        gap: 10px; /* Jarak antara ikon dan teks */
     }
 
     .menu-bar {
         flex-grow: 1;
-        display: flex;
-        flex-direction: column; /* Menyusun menu-menu secara vertikal */
-        gap: 10px; /* Memberi jarak antar menu */
     }
 
     .menu-bar a {
@@ -63,4 +55,3 @@
         transform: scale(0.95); /* Efek mengecil saat diklik */
     }
 </style>
-

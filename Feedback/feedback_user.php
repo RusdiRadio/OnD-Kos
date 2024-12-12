@@ -192,7 +192,7 @@ include '../Sidebar/user.php';?>
     <div class="container">
         <div class="form-container">
             <h2>Feedback atau Komplain</h2>
-            <form method="POST" action="/OnDKos/User/submit_feedback.php">
+            <form method="POST" action="feedbackuser_add.php">
                 <label for="subjek">Subjek:</label>
                 <input type="text" id="subjek" name="subjek" placeholder="Masukkan subjek" required>
 
@@ -218,4 +218,3 @@ document.querySelector("#feedbackForm").addEventListener("submit", function(even
 </script>
 </body>
 </html>
-
