@@ -9,114 +9,196 @@ require('../koneksi.php'); // Pastikan file koneksi sudah ada dan terkoneksi den
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesanan Kamar</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6f7ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #007bff;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-        }
-        .menu-bar {
-            flex-grow: 1;
-        }
-        .menu-bar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-        .menu-bar a:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .logout {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #d3d3d3;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-            font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .logout:hover {
-            background-color: #bfbfbf;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .container {
-            margin-left: 270px;
-            width: 80%;
-            padding-top: 50px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .order {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .upload-btn {
-            background-color: #28a745;
-            color: white;
-        }
-        .upload-btn:hover {
-            background-color: #218838;
-        }
+:root {
+    /* Elegant Color Palette */
+    --primary-color: #1a5f7a;     /* Deep teal-blue */
+    --secondary-color: #e6f1f7;   /* Soft, pale blue */
+    --accent-color: #6b8e9f;      /* Muted slate blue */
+    --text-dark: #2c3e50;         /* Deep charcoal */
+    --text-light: #f4f9ff;        /* Soft off-white */
+    --card-shadow: rgba(0, 0, 0, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary-color);
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), #133b5c);
+    color: var(--text-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    box-shadow: 8px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    background: linear-gradient(to right, var(--text-light), #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menu-bar a {
+    display: block;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-bar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.5s;
+}
+
+.menu-bar a:hover::before {
+    left: 100%;
+}
+
+.menu-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+}
+
+.logout {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logout:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+    margin-left: 300px;
+    padding: 40px 30px;
+}
+
+.container h2 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--card-shadow);
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+form select, form button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+form button {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.order {
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+}
+
+.upload-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 20px;
+    }
+
+    .container {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
     </style>
 </head>
 <body>

@@ -5,191 +5,262 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Kamar</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6f7ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #007bff;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-        }
-        .menu-bar {
-            flex-grow: 1;
-        }
-        .menu-bar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-        .menu-bar a:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .logout {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #d3d3d3;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-            font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .logout:hover {
-            background-color: #bfbfbf;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .container {
-            margin-left: 270px;
-            width: 80%;
-            padding-top: 50px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .container h2 {
-            color: #007bff;
-        }
-        .room-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .room-card {
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            width: 250px;
-            margin-top: 20px;
-        }
-        .room-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-        .room-card button {
-            background-color: #17a2b8;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            transition: background-color 0.3s, transform 0.3s;
-            margin-top: 10px;
-        }
-        .room-card button:hover {
-            background-color: #138496;
-        }
-        .details-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .details-modal .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 400px;
-            text-align: left;
-        }
-        .details-modal .modal-content h3 {
-            text-align: center;
-        }
-        .details-modal .modal-content p {
-            margin: 10px 0;
-        }
-        .close-modal {
-            background-color: #dc3545;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    :root {
+    /* Elegant Color Palette */
+    --primary-color: #1a5f7a;     /* Deep teal-blue */
+    --secondary-color: #e6f1f7;   /* Soft, pale blue */
+    --accent-color: #6b8e9f;      /* Muted slate blue */
+    --text-dark: #2c3e50;         /* Deep charcoal */
+    --text-light: #f4f9ff;        /* Soft off-white */
+    --card-shadow: rgba(0, 0, 0, 0.12);
+}
 
-        .details-modal {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Quicksand', 'Arial', sans-serif;
+    background-color: var(--secondary-color);
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), #133b5c);
+    color: var(--text-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    box-shadow: 8px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    background: linear-gradient(to right, var(--text-light), #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menu-bar a {
+    display: block;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-bar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+}
+
+.menu-bar a:hover::before {
+    left: 100%;
+}
+
+.menu-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+}
+
+.logout {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logout:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+    margin-left: 300px;
+    padding: 40px 30px;
+}
+
+.container h2 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.room-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.room-card {
+    background-color: white;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px;
+    width: 300px;
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.room-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.room-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.room-card button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.room-card button:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.details-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Menambahkan z-index tinggi agar modal di atas konten lainnya */
+    z-index: 9999;
 }
-
 
 .details-modal .modal-content {
     background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: left;
+    padding: px;
+    border-radius: 20px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 .details-modal .modal-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.details-modal .modal-content p {
+    margin: 15px 0;
+    color: var(--text-dark);
+}
+
+.details-modal .modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-modal .modal-content form label {
+    margin-top: 10px;
+    color: var(--text-dark);
+    font-weight: 600;
 }
 
 .details-modal .modal-content form input,
-.details-modal .modal-content form button {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
+.details-modal .modal-content form select {
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #d1d8e0;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
-.details-modal .modal-content .close-modal {
-    background-color: #dc3545;
+.details-modal .modal-content .close-modal,
+.details-modal .modal-content form button[type="submit"] {
+    background-color: var(--accent-color);
     color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 15px;
     cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
+    transition: all 0.3s ease;
 }
 
+.details-modal .modal-content .close-modal:hover,
+.details-modal .modal-content form button[type="submit"]:hover {
+    background-color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 20px;
+    }
+
+    .container {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .room-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}
     </style>
 </head>
 <body>

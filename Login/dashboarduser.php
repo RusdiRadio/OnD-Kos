@@ -64,126 +64,178 @@ mysqli_close($koneksi);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6f7ff; /* Biru muda */
-        }
+      :root {
+    /* Elegant Color Palette */
+    --primary-color: #1a5f7a;     /* Deep teal-blue */
+    --secondary-color: #e6f1f7;   /* Soft, pale blue */
+    --accent-color: #6b8e9f;      /* Muted slate blue */
+    --text-dark: #2c3e50;         /* Deep charcoal */
+    --text-light: #f4f9ff;        /* Soft off-white */
+    --card-shadow: rgba(0, 0, 0, 0.12);
+}
 
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #007bff; /* Biru */
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+}
 
-        .sidebar h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary-color);
+    line-height: 1.6;
+    color: var(--text-dark);
+}
 
-        .menu-bar {
-            flex-grow: 1;
-        }
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), #133b5c);
+    color: var(--text-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    box-shadow: 8px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-        .menu-bar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out; /* Animasi transisi */
-        }
+.sidebar h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    background: linear-gradient(to right, var(--text-light), #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .menu-bar a:hover {
-            background-color: #0056b3; /* Biru lebih gelap */
-            transform: translateY(-2px); /* Efek mengangkat tombol */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan tombol */
-        }
+.menu-bar a {
+    display: block;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
 
-        .menu-bar a:active {
-            transform: scale(0.95); /* Efek mengecil saat diklik */
-        }
+.menu-bar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.5s;
+}
 
-        .logout {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #d3d3d3; /* Abu-abu */
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out; /* Animasi transisi */
-            font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.menu-bar a:hover::before {
+    left: 100%;
+}
 
-        .logout:hover {
-            background-color: #bfbfbf; /* Abu-abu lebih gelap */
-            transform: translateY(-2px); /* Efek mengangkat tombol */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan tombol */
-        }
+.menu-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+}
 
-        .logout:active {
-            transform: scale(0.95); /* Efek mengecil saat diklik */
-        }
+.logout {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
 
-        main {
-            margin-left: 270px; /* Menggeser konten utama agar tidak tertutup sidebar */
-            padding: 20px;
-        }
+.logout:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
 
-        .container {
-            text-align: center;
-        }
+main {
+    margin-left: 300px;
+    padding: 40px 30px;
+}
 
-        .card-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
+.container h2 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
 
-        .card {
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            width: 250px;
-        }
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
 
-        .card h3 {
-            margin: 0 0 10px;
-            color: #333;
-            font-size: 20px;
-        }
+.card {
+    background-color: white;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    padding: 30px;
+    text-align: center;
+    border-radius: 15px;
+    width: 300px;
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-        .card p {
-            color: #555; /* Abu-abu */
-            font-size: 16px;
-        }
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
 
-        .chart-container {
-            margin-top: 15px;
-            width: 100%;
-            height: 200px; /* Tinggi chart */
-        }
+.card h3 {
+    margin: 0 0 15px;
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.card p {
+    color: var(--accent-color);
+    font-size: 18px;
+}
+
+.chart-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 250px;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 20px;
+    }
+
+    main {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
     </style>
 </head>
 <body>

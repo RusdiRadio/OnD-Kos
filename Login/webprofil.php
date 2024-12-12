@@ -94,7 +94,6 @@ if (isset($_POST['login'])) {
                 <li><a href="#tentang-kami">Tentang Kami</a></li>
                 <li><a href="#fasilitas">Fasilitas</a></li>
                 <li><a href="#kontak">Kontak</a></li>
-                <li><a href="#login01">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -124,27 +123,6 @@ if (isset($_POST['login'])) {
         <h2>Kontak Kami</h2>
         <!-- Konten kontak disini -->
     </section>
-<head>
-    <!-- Login Section -->
-    <section id="login">
-        <div class="login-box">
-            <h2>Login</h2>
-            <?php if (isset($error)): ?>
-                <p class="error"><?= $error; ?></p>
-            <?php endif; ?>
-            <form action="" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username" required>
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" required>
-                <input type="submit" name="login" value="Login">
-            </form>
-        </div>
-    </section>
-</head>
-    <footer>
-        <p>&copy; 2024 On D-Kost</p>
-    </footer>
     <script src="script.js"></script>
 </body>
 </html>
