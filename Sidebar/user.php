@@ -1,13 +1,45 @@
 <div class="sidebar">
-    <h1>OnD-Kos</h1>
+    <h1>
+        <i class="bi bi-house-door"></i> OnD-Kos
+    </h1>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Foto Profil dan Username -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <!-- Foto Profil -->
+        <img src="../uploads/<?php echo htmlspecialchars($_SESSION['foto'] ?? 'default.png'); ?>" alt="Foto Profil" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid white; object-fit: cover;">
+        
+        <!-- Username -->
+        <div style="margin-top: 10px; color: white; font-weight: bold;">
+            <?php echo htmlspecialchars($user['username'] ?? 'Tidak Diketahui'); ?>
+        </div>
+    </div>
+    
+    <!-- Menu Bar -->
     <div class="menu-bar">
-        <a href="/OnDKos/Login/dashboarduser.php">Dashboard</a>
-        <a href="/OnDKos/Kamar/index2user.php">Booking Kamar</a>
-        <a href="/OnDKos/Transaksi/index7.php">Pemesanan dan pembayaran online</a>
-        <a href="/OnDKos/Feedback/feedback_user.php">Feedback atau Komplain</a>
-        <a href="/OnDKos/User/index5.php">Pengaturan Profil</a>
+        <a href="/OnDKos/Login/dashboarduser.php">
+            <i class="bi bi-house-door"></i> Dashboard
+        </a>
+        <a href="/OnDKos/Kamar/index2user.php">
+            <i class="bi bi-door-open"></i> Booking Kamar
+        </a>
+        <a href="/OnDKos/Transaksi/index7.php">
+            <i class="bi bi-file-earmark-check"></i> Pemesanan dan pembayaran online
+        </a>
+        <a href="/OnDKos/Feedback/feedback_user.php">
+            <i class="bi bi-chat-dots"></i> Feedback atau Komplain
+        </a>
+        <a href="/OnDKos/Pengaturan profil/Pengaturan profil.php">
+            <i class="bi bi-person-circle"></i> Pengaturan Profil
+        </a>
     </div>
 </div>
+
+
+</div>
+
+
+
 
 <style>
     .sidebar {

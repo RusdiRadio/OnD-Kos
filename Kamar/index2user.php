@@ -1,11 +1,38 @@
 <?php
 session_start();
+require '../koneksi.php'; // Jalur sesuaikan dengan lokasi file koneksi.php
 
-// Cek apakah pengguna sudah login dan role-nya User
+// Debug untuk memastikan koneksi terhubung
+if ($koneksi) {
+    echo "Koneksi ke database berhasil.";
+}
+
+// Cek apakah pengguna sudah login dan memiliki role 'User'
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'User') {
+    // Arahkan ke halaman login jika belum login
     header("Location: login.php");
     exit;
 }
+
+// Ambil ID user dari sesi
+$id_user = $_SESSION['id_user'] ?? null;
+
+if (!$id_user) {
+    // Jika ID user tidak ditemukan di sesi, arahkan ke login
+    echo "<script>alert('Silakan login terlebih dahulu!'); window.location.href='login.php';</script>";
+    exit;
+}
+
+// Ambil data pengguna berdasarkan ID pengguna dari database
+$query = $koneksi->query("SELECT * FROM daftar_user WHERE id_user = '" . $koneksi->real_escape_string($id_user) . "'");
+
+if (!$query || $query->num_rows == 0) {
+    // Jika data pengguna tidak ditemukan, tampilkan pesan kesalahan
+    die("Data pengguna tidak ditemukan. Pastikan tabel dan ID user sesuai.");
+}
+
+// Data pengguna disimpan dalam variabel $user
+$user = $query->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -17,69 +44,91 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'User') {
     <title>Data Kamar</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6f7ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f7ff;
+}
 
-        .logout {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #d3d3d3;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-            font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+/* Layout Flexbox */
+#room-page {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
 
-        .logout:hover {
-            background-color: #bfbfbf;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+#room-page .sidebar {
+    width: 250px;
+    background-color: #007bff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
 
-        .container {
-            margin-left: 270px;
-            width: 80%;
-            padding-top: 50px;
-           
-            margin-bottom: 30px;
-        }
+#room-page .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+    background-color: #e6f7ff;
+    min-height: 100vh;
+}
 
-        .container h2 {
-            color: #007bff;
-        }
+.logout {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #d3d3d3;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .room-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+.logout:hover {
+    background-color: #bfbfbf;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .room-card {
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            width: 250px;
-            margin-top: 20px;
-        }
+#room-page .container {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    text-align: center;
+}
 
-        .room-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
+#room-page .container h2 {
+    color: #007bff;
+}
+
+#room-page .room-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#room-page .room-card {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    width: 250px;
+}
+
+#room-page .room-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
 
         .room-card button {
             background-color: #17a2b8;
@@ -174,14 +223,20 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'User') {
     </style>
 </head>
 <body>
-    <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
+<body>
+    <div id="room-page">
+        <div class="layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <?php include '../Sidebar/user.php'; ?>
+            </div>
 
-    <div class="container">
+    <div class="main-content">
+    <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
         <h2>Daftar Kamar</h2>
         <div class="room-section">
         <?php
         require('../koneksi.php');
-        include '../Sidebar/user.php'; 
         $query = "SELECT * FROM kamar";
         $result = mysqli_query($koneksi, $query);
 

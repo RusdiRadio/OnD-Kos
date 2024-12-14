@@ -9,7 +9,24 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'User') {
 
 // Menghubungkan ke database
 require_once "../koneksi.php";
+$id_user = $_SESSION['id_user'] ?? null;
 
+if (!$id_user) {
+    // Jika belum login, arahkan ke halaman login
+    echo "<script>alert('Silakan login terlebih dahulu!'); window.location.href='login.php';</script>";
+    exit;
+}
+
+// Ambil data pengguna berdasarkan ID pengguna dari session
+$query = $koneksi->query("SELECT * FROM daftar_user WHERE id_user = '" . $koneksi->real_escape_string($id_user) . "'");
+
+if (!$query || $query->num_rows == 0) {
+    // Jika data pengguna tidak ditemukan
+    die("Data pengguna tidak ditemukan. Pastikan tabel dan ID user sesuai.");
+}
+
+// Data pengguna disimpan dalam variabel $user
+$user = $query->fetch_assoc();
 // Ambil username dari sesi
 $username = $_SESSION['username'];
 
