@@ -100,9 +100,25 @@ $id_user = $row_user['id_user']; // ID user berdasarkan sesi login
     <!-- Main Content -->
     <div class="container">
         <h2>Pesanan Kamar</h2>
-        
+
         <?php
         include '../Sidebar/user.php';
+
+        // Query untuk mendapatkan data pembayaran
+        echo "<h3>Metode Pembayaran Tersedia:</h3>";
+        $query_pembayaran = "SELECT jenis, nomor FROM pembayaran";
+        $result_pembayaran = mysqli_query($koneksi, $query_pembayaran);
+
+        if (mysqli_num_rows($result_pembayaran) > 0) {
+            echo "<table border='1' cellpadding='10' cellspacing='0'>";
+            echo "<tr><th>Jenis Pembayaran</th><th>Nomor</th></tr>";
+            while ($row = mysqli_fetch_assoc($result_pembayaran)) {
+                echo "<tr><td>{$row['jenis']}</td><td>{$row['nomor']}</td></tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>Tidak ada metode pembayaran tersedia.</p>";
+        }
 
         // Query untuk mendapatkan pesanan berdasarkan id_user dari sesi login
         $query = "SELECT t.id_transaksi, t.id_kamar, t.bukti_pembayaran 

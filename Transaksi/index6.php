@@ -151,6 +151,8 @@ form input[type="submit"]:hover {
 <div class="content">
     <div class="container">
         <h2>DAFTAR TRANSAKSI</h2>
+        <button onclick="window.location.href='jenis_pembayaran.php'">Atur Jenis Pembayaran</button>
+    
         <?php
         // Query untuk mendapatkan data transaksi
         $query = "SELECT t.id_transaksi, t.id_user, d.nama_user, k.id_kamar, t.bukti_pembayaran, t.status_pembayaran
@@ -181,6 +183,7 @@ form input[type="submit"]:hover {
 <div class="modal" id="modal">
     <div class="modal-content">
         <h3>Detail Pemesanan</h3>
+        
         <form id="form-transaksi" action="konfirmasi.php" method="POST">
             <input type="hidden" name="id_transaksi" id="modal-id-transaksi">
 
