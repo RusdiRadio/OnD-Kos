@@ -63,18 +63,6 @@ mysqli_close($koneksi);
             padding: 0;
             background-color: #e6f7ff;
         }
-        .navbar {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
         .menu-bar {
             display: flex;
             gap: 15px;
@@ -107,6 +95,7 @@ mysqli_close($koneksi);
             padding-top: 50px;
             text-align: center;
             margin-bottom: 30px;
+            margin-left: 270px; /* Sedikit lebih besar dari lebar sidebar */
         }
         h2 {
             color: #007bff;
@@ -157,18 +146,9 @@ mysqli_close($koneksi);
     </style>
 </head>
 <body>
+<?php include '../Sidebar/admin.php'; ?> <!-- Memuat Sidebar -->
 
-    <div class="navbar">
-        <h1>OnD-Kos</h1>
-        <div class="menu-bar">
-            <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/OnDKos/User/index3.php">Kelola User</a>
-            <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
-            <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
-        </div>
-        <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
-    </div>
+   
 
     <div class="container">
         <h2>Edit Data Kamar</h2>

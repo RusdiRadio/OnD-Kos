@@ -9,218 +9,218 @@
         /* Gaya umum */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e6f7ff;
-            color: #333;
             margin: 0;
             padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .menu-bar {
-            display: flex;
-            gap: 15px;
-        }
-        .menu-bar a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .menu-bar a:hover {
-            background-color: #0056b3;
-        }
-        .logout {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .logout:hover {
-            background-color: #c82333;
+        canvas {
+            display: block;
+            margin: 0 auto; /* Pusatkan grafik secara horizontal */
+            max-width: 90%; /* Perbesar ukuran grafik */
+            max-height: 90%; /* Sesuaikan proporsi tinggi */
         }
 
-        /* Container dan konten utama */
+        .content {
+            margin-left: 280px; /* Menyesuaikan lebar sidebar */
+            padding: 30px;
+            flex-grow: 1;
+            min-height: 100vh;
+            background-color: #ffffff;
+            box-shadow: -3px 0 6px rgba(0, 0, 0, 0.15);
+        }
+
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h2 {
-            color: #444;
+            width: 96%;
+            max-width: 1300px;
+            margin: auto;
+            padding: 30px;
         }
 
-        /* Gaya grafik */
+        .container h2 {
+            color: #007bff;
+            text-align: left;
+            margin-bottom: 25px;
+            font-size: 28px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 15px;
+        }
+
         .chart-container {
             position: relative;
-            margin: 20px auto;
-            width: 100%;
-            max-width: 700px;
-            max-height: 400px;
-            background: #eaeaea;
+            margin: 25px auto;
+            background-color: #ffffff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px;
+            width: 95%; /* Sesuaikan lebar kontainer */
+            max-width: 1200px; /* Perbesar lebar maksimum */
+            height: 600px; /* Tambahkan tinggi tetap */
         }
 
-        /* Footer */
+        .chart-container canvas {
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .btn-dashboard {
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: white;
+            margin-top: 25px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-dashboard:hover {
+            background-color: #0056b3;
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.4);
+        }
+
         .footer {
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
             color: #777;
         }
-
-        /* Tombol */
-        .btn-dashboard {
-            background-color: #17a2b8;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        .btn-dashboard:hover {
-            background-color: #138496;
-        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <h1>OnD-Kos</h1>
-        <div class="menu-bar">
-            <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/OnDKos/User/index3.php">Kelola User</a>
-            <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
-            <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
-        </div>
-        <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
-    </div>
+<?php include '../Sidebar/admin.php'; ?> <!-- Memuat Sidebar -->
 
-    <!-- Container grafik -->
+<div class="content">
     <div class="container">
-        <h2>Grafik Pemasukan Tahunan Kos</h2>
+        <h2>KEUANGAN</h2>
         <div class="chart-container">
-            <canvas id="incomeChart" width="600" height="500"></canvas>
+            <canvas id="incomeChart"></canvas>
         </div>
         <a href="/OnDKos/Login/dashboardadmin.php" class="btn-dashboard">Kembali ke Dashboard</a>
     </div>
 
     <?php
-require '../koneksi.php';
+    require '../koneksi.php';
 
-// Daftar nama bulan lengkap
-$bulanLengkap = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // Data bulan
+    $bulanLengkap = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    $pemasukanData = array_fill(0, 12, 0);
+    $pengeluaranData = array_fill(0, 12, 0);
 
-// Inisialisasi array pemasukan dengan nilai default 0
-$pemasukanData = array_fill(0, 12, 0); // 12 bulan penuh
-
-// Query untuk mendapatkan data pemasukan
-$query = "SELECT MONTH(tanggal_transaksi) AS bulan, SUM(jumlah_bayar) AS total_pemasukan
-          FROM transaksi
-          WHERE status_pembayaran = 'sudah bayar'
-          GROUP BY bulan
-          ORDER BY bulan";
-
-$result = mysqli_query($koneksi, $query);
-
-// Jika query gagal, tampilkan pesan error
-if (!$result) {
-    die("Query Error: " . mysqli_error($koneksi));
-}
-
-// Memproses hasil query untuk memasukkan data pemasukan
-while ($row = mysqli_fetch_assoc($result)) {
-    $index = $row['bulan'] - 1; // Konversi bulan ke indeks array (0-based)
-    $pemasukanData[$index] = $row['total_pemasukan'];
-}
-
-// Tutup koneksi ke database
-mysqli_close($koneksi);
-?>
-
-
-<script>
-    // Data bulan dan pemasukan dari PHP
-    const bulan = <?php echo json_encode($bulanLengkap); ?>;
-    const pemasukan = <?php echo json_encode($pemasukanData); ?>;
-
-    // Debugging: Pastikan data ditampilkan di console
-    console.log("Bulan:", bulan);
-    console.log("Pemasukan:", pemasukan);
-
-    // Buat grafik dengan Chart.js
-    const ctx = document.getElementById('incomeChart').getContext('2d');
-    const incomeChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: bulan,
-            datasets: [{
-                label: 'Total Pemasukan (dalam Rp)',
-                data: pemasukan,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 2,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Total Pemasukan (Rp)',
-                        font: {
-                            size: 14,
-                        }
-                    }
+    // Query untuk data pemasukan
+    
+    // Query untuk mendapatkan pemasukan
+    $queryPemasukan = "SELECT MONTH(tanggal_transaksi) AS bulan, SUM(jumlah_bayar) AS total_pemasukan
+                       FROM transaksi
+                       WHERE status_pembayaran = 'sudah bayar'
+                       GROUP BY bulan
+                       ORDER BY bulan";
+    
+    // Query untuk mendapatkan pengeluaran
+    $queryPengeluaran = "SELECT MONTH(tanggal) AS bulan, SUM(biaya_keluar) AS total_pengeluaran
+                         FROM pengeluaran
+                         GROUP BY bulan
+                         ORDER BY bulan";
+    
+    // Eksekusi query untuk pemasukan
+    $resultPemasukan = mysqli_query($koneksi, $queryPemasukan);
+    if (!$resultPemasukan) {
+        die("Query Error: " . mysqli_error($koneksi));
+    }
+    
+    // Eksekusi query untuk pengeluaran
+    $resultPengeluaran = mysqli_query($koneksi, $queryPengeluaran);
+    if (!$resultPengeluaran) {
+        die("Query Error: " . mysqli_error($koneksi));
+    }
+    
+    // Inisialisasi array untuk menyimpan data pemasukan dan pengeluaran
+    $pemasukanData = array_fill(0, 12, 0);
+    $pengeluaranData = array_fill(0, 12, 0);
+    
+    // Ambil data pemasukan
+    while ($row = mysqli_fetch_assoc($resultPemasukan)) {
+        $index = $row['bulan'] - 1;
+        $pemasukanData[$index] = $row['total_pemasukan'];
+    }
+    
+    // Ambil data pengeluaran
+    while ($row = mysqli_fetch_assoc($resultPengeluaran)) {
+        $index = $row['bulan'] - 1;
+        $pengeluaranData[$index] = $row['total_pengeluaran'];
+    }
+    
+    mysqli_close($koneksi);
+    ?>
+    
+    <script>
+        const bulan = <?php echo json_encode($bulanLengkap); ?>;
+        const pemasukan = <?php echo json_encode($pemasukanData); ?>;
+        const pengeluaran = <?php echo json_encode($pengeluaranData); ?>;
+    
+        const ctx = document.getElementById('incomeChart').getContext('2d');
+        const incomeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: bulan,
+                datasets: [{
+                    label: 'Total Pemasukan (dalam Rp)',
+                    data: pemasukan,
+                    borderColor: 'rgba(75, 192, 192, 1)', // Warna biru untuk pemasukan
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    fill: true
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Bulan',
-                        font: {
-                            size: 14,
+                {
+                    label: 'Total Pengeluaran (dalam Rp)',
+                    data: pengeluaran,
+                    borderColor: 'rgba(255, 99, 132, 1)', // Warna merah untuk pengeluaran
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total (Rp)',
+                            font: {
+                                size: 14,
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Bulan',
+                            font: {
+                                size: 14,
+                            }
                         }
                     }
                 }
             }
-        }
-    });
-</script>
-
+        });
+    </script>
+    
 
     <div class="footer">
         <p>&copy; 2024 Kos Management System. All rights reserved.</p>
     </div>
+</div>
 
 </body>
 </html>

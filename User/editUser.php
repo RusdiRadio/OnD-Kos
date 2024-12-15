@@ -65,18 +65,7 @@ if (isset($_POST['update'])) {
             padding: 0;
             background-color: #e6f7ff;
         }
-        .navbar {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+        
         .menu-bar {
             display: flex;
             gap: 15px;
@@ -105,7 +94,7 @@ if (isset($_POST['update'])) {
         }
         .container {
             width: 50%; /* Lebih kecil */
-            margin: auto;
+            margin-left: 585px;
             padding-top: 50px;
             text-align: center;
         }
@@ -163,18 +152,7 @@ if (isset($_POST['update'])) {
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>OnD-Kos</h1>
-        <div class="menu-bar">
-            <a href="/OnDKos/Kamar/index2.php">Kelola Kamar</a>
-            <a href="/OnDKos/User/index3.php">Kelola User</a>
-            <a href="/OnDKos/Penghuni/index4.php">Kelola Penghuni</a>
-            <a href="/OnDKos/Grafik/grafik.php">Pemasukan</a>
-            <a href="/OnDKos/Riwayat/index5.php">Riwayat Penghuni</a>
-        </div>
-        <a href="/OnDKos/Login/logout.php" class="logout">Logout</a>
-    </div>
-
+<?php include '../Sidebar/admin.php'; ?> <!-- Memuat Sidebar -->
     <div class="container">
         <h2>Edit User</h2>
         

@@ -6,7 +6,7 @@ session_start();
 $host = "localhost";
 $pengguna = "root";
 $sandi = "";
-$dbname = "ond-kos";
+$dbname = "ondkos";
 
 $koneksi = new mysqli($host, $pengguna, $sandi, $dbname);
 
